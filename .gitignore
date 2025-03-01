@@ -1,12 +1,12 @@
 ### Project ###
-# Development environment
-dev.ipynb
-
 # Temporary folder for data files
 .temp
 
 ### VSCode ###
 .vscode
+
+## Git ###
+.git/
 
 ### Python ###
 # Byte-compiled
@@ -28,3 +28,6 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# pytest
+.pytest_cache/
