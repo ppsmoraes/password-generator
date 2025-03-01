@@ -6,7 +6,7 @@ from sys import argv, exit
 
 def run_checks(target: str) -> None:
     """
-    Executa isort, black e mypy em ordem no alvo especificado.
+    Executa isort, black, pydocstyle, mypy e pytest, nesta ordem, no alvo especificado.
 
     Parameters
     ----------
