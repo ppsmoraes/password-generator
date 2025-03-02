@@ -1,5 +1,3 @@
-import sys
-
 from PyQt6.QtCore import QSize, QTimer
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import (
@@ -26,13 +24,14 @@ class PasswordGenerator(QWidget):
 
     def init_UI(self) -> None:
         # Título da janela
+        self.setWindowIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemLockScreen))
         self.setWindowTitle('Gerador de Senhas')
 
         # Layout principal horizontal para conter a barra lateral e o conteúdo principal
         root_layout: QHBoxLayout = QHBoxLayout()
 
         # Barra lateral (Grupo de opções)
-        sidebar: QGroupBox = QGroupBox('Opções de Senha')
+        sidebar: QGroupBox = QGroupBox('Opções')
         sidebar_layout: QVBoxLayout = QVBoxLayout()
 
         # Tamanho da senha
@@ -74,9 +73,10 @@ class PasswordGenerator(QWidget):
 
         # Botão para copiar o texto
         self.copy_button: QPushButton = QPushButton(self)
-        self.copy_button.setIcon(QIcon.fromTheme('edit-copy'))
+        self.copy_button.setIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditCopy))
         self.copy_button.setIconSize(QSize(16, 16))
         self.copy_button.setFixedSize(24, 24)
+        self.copy_button.setToolTip('Copiar')
         self.copy_button.clicked.connect(self.copy_password)
 
         # Adiciona widgets à linha da senha
@@ -150,10 +150,3 @@ class PasswordGenerator(QWidget):
             self.fade_timer.stop()
             self.feedback_label.setText('')
             self.feedback_label.setGraphicsEffect(None)
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = PasswordGenerator()
-    window.show()
-    sys.exit(app.exec())
