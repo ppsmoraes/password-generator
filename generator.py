@@ -44,6 +44,11 @@ def gerar_senha(
     -------
     str
         A senha gerada.
+
+    Raises
+    ------
+    ValueError
+        Erro quando o tamanho da senha não pode garantir os tipos solicitados.
     """
     possiveis: str = ''
     escolhidos: list[str] = []
@@ -64,6 +69,11 @@ def gerar_senha(
         possiveis += string.punctuation
         if garantir_especiais:
             escolhidos.append(secrets.choice(string.punctuation))
+
+    if comprimento < len(escolhidos):
+        raise ValueError(
+            f'Não é possível garantir todos os tipos com uma senha de  tamanho {comprimento}.'
+        )
 
     escolhidos.extend(
         [secrets.choice(possiveis) for _ in range(comprimento - len(escolhidos))]
