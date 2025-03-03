@@ -4,15 +4,15 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from app import PasswordGenerator
+from app import GeradorDeSenhas
 
 
 def main() -> None:
-    """Função inicializa o projeto."""
-    app = QApplication(sys.argv)
-    window = PasswordGenerator()
-    window.show()
-    sys.exit(app.exec())
+    """Função que inicializa o projeto."""
+    aplicativo = QApplication(sys.argv)
+    janela = GeradorDeSenhas()
+    janela.show()
+    sys.exit(aplicativo.exec())
 
 
 if __name__ == '__main__':

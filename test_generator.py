@@ -1,18 +1,18 @@
 import random
 import string
 
-import generator
+import gerador
 
 
 def test_comprimento() -> None:
     comprimento: int = random.randint(4, 50)
-    senha: str = generator.gerar_senha(comprimento)
+    senha: str = gerador.gerar_senha(comprimento)
     assert comprimento == len(senha)
 
 
 def test_duplicidade() -> None:
-    senha_1: str = generator.gerar_senha(10)
-    senha_2: str = generator.gerar_senha(10)
+    senha_1: str = gerador.gerar_senha(10)
+    senha_2: str = gerador.gerar_senha(10)
     assert senha_1 != senha_2
 
 
@@ -24,10 +24,10 @@ def checar_conteudo(amostra: str, universo: str) -> bool:
 
 
 def test_minusculas() -> None:
-    senha_com_minusculas: str = generator.gerar_senha(
+    senha_com_minusculas: str = gerador.gerar_senha(
         10, usar_minusculas=True, garantir_minusculas=True
     )
-    senha_sem_minusculas: str = generator.gerar_senha(10, usar_minusculas=False)
+    senha_sem_minusculas: str = gerador.gerar_senha(10, usar_minusculas=False)
 
     resultado_com_minusculas: bool = checar_conteudo(
         senha_com_minusculas, string.ascii_lowercase
@@ -41,10 +41,10 @@ def test_minusculas() -> None:
 
 
 def test_maiusculas() -> None:
-    senha_com_maiusculas: str = generator.gerar_senha(
+    senha_com_maiusculas: str = gerador.gerar_senha(
         10, usar_maiusculas=True, garantir_maiusculas=True
     )
-    senha_sem_maiusculas: str = generator.gerar_senha(10, usar_maiusculas=False)
+    senha_sem_maiusculas: str = gerador.gerar_senha(10, usar_maiusculas=False)
 
     resultado_com_maiusculas: bool = checar_conteudo(
         senha_com_maiusculas, string.ascii_uppercase
@@ -58,10 +58,10 @@ def test_maiusculas() -> None:
 
 
 def test_numeros() -> None:
-    senha_com_numeros: str = generator.gerar_senha(
+    senha_com_numeros: str = gerador.gerar_senha(
         10, usar_numeros=True, garantir_numeros=True
     )
-    senha_sem_numeros: str = generator.gerar_senha(10, usar_numeros=False)
+    senha_sem_numeros: str = gerador.gerar_senha(10, usar_numeros=False)
 
     resultado_com_numeros: bool = checar_conteudo(senha_com_numeros, string.digits)
     resultado_sem_numeros: bool = checar_conteudo(senha_sem_numeros, string.digits)
@@ -71,10 +71,10 @@ def test_numeros() -> None:
 
 
 def test_especiais() -> None:
-    senha_com_especiais: str = generator.gerar_senha(
+    senha_com_especiais: str = gerador.gerar_senha(
         10, usar_especiais=True, garantir_especiais=True
     )
-    senha_sem_especiais: str = generator.gerar_senha(10, usar_especiais=False)
+    senha_sem_especiais: str = gerador.gerar_senha(10, usar_especiais=False)
 
     resultado_com_especiais: bool = checar_conteudo(
         senha_com_especiais, string.punctuation

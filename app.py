@@ -18,10 +18,10 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-import generator
+import gerador
 
 
-class PasswordGenerator(QWidget):
+class GeradorDeSenhas(QWidget):
     """Classe da janela da aplicação."""
 
     def __init__(self) -> None:
@@ -35,108 +35,108 @@ class PasswordGenerator(QWidget):
         self.setWindowTitle('Gerador de Senhas')
 
         # Layout principal horizontal
-        root_layout: QHBoxLayout = QHBoxLayout()
+        layout_raiz: QHBoxLayout = QHBoxLayout()
 
         # Barra lateral
-        sidebar: QGroupBox = QGroupBox('Opções')
-        sidebar_layout: QVBoxLayout = QVBoxLayout()
+        barra_lateral: QGroupBox = QGroupBox('Opções')
+        layout_barra_lateral: QVBoxLayout = QVBoxLayout()
 
-        # Tamanho da senha
-        self.length_label: QLabel = QLabel('Tamanho:')
-        self.length_input: QSpinBox = QSpinBox()
-        self.length_input.setRange(1, 100)
-        self.length_input.setValue(8)
+        # Comprimento da senha
+        self.etiqueta_comprimento: QLabel = QLabel('Tamanho:')
+        self.entrada_comprimento: QSpinBox = QSpinBox()
+        self.entrada_comprimento.setRange(1, 100)
+        self.entrada_comprimento.setValue(8)
 
         # Checkboxes para as opções
-        self.use_lowercase: QCheckBox = QCheckBox('Minúsculas')
-        self.use_lowercase.setChecked(True)
-        self.use_uppercase: QCheckBox = QCheckBox('Maiúsculas')
-        self.use_uppercase.setChecked(True)
-        self.use_numbers: QCheckBox = QCheckBox('Números')
-        self.use_numbers.setChecked(True)
-        self.use_symbols: QCheckBox = QCheckBox('Símbolos')
-        self.use_symbols.setChecked(True)
+        self.usar_minusculas: QCheckBox = QCheckBox('Minúsculas')
+        self.usar_minusculas.setChecked(True)
+        self.usar_maiusculas: QCheckBox = QCheckBox('Maiúsculas')
+        self.usar_maiusculas.setChecked(True)
+        self.usar_numeros: QCheckBox = QCheckBox('Números')
+        self.usar_numeros.setChecked(True)
+        self.usar_simbolos: QCheckBox = QCheckBox('Símbolos')
+        self.usar_simbolos.setChecked(True)
 
         # Adiciona widgets à barra lateral
-        sidebar_layout.addWidget(self.length_label)
-        sidebar_layout.addWidget(self.length_input)
-        sidebar_layout.addWidget(self.use_lowercase)
-        sidebar_layout.addWidget(self.use_uppercase)
-        sidebar_layout.addWidget(self.use_numbers)
-        sidebar_layout.addWidget(self.use_symbols)
-        sidebar_layout.addStretch()
-        sidebar.setLayout(sidebar_layout)
+        layout_barra_lateral.addWidget(self.etiqueta_comprimento)
+        layout_barra_lateral.addWidget(self.entrada_comprimento)
+        layout_barra_lateral.addWidget(self.usar_minusculas)
+        layout_barra_lateral.addWidget(self.usar_maiusculas)
+        layout_barra_lateral.addWidget(self.usar_numeros)
+        layout_barra_lateral.addWidget(self.usar_simbolos)
+        layout_barra_lateral.addStretch()
+        barra_lateral.setLayout(layout_barra_lateral)
 
         # Conteúdo principal
-        main: QGroupBox = QGroupBox('Gerador de Senhas Seguras')
-        main_layout: QVBoxLayout = QVBoxLayout()
+        principal: QGroupBox = QGroupBox('Gerador de Senhas Seguras')
+        layout_principal: QVBoxLayout = QVBoxLayout()
 
         # Caixa horizontal para a senha e o botão de copiar
-        password_display_layout: QHBoxLayout = QHBoxLayout()
+        layout_senha: QHBoxLayout = QHBoxLayout()
 
         # A senha gerada
-        self.password_display: QLineEdit = QLineEdit()
-        self.password_display.setReadOnly(True)
+        self.local_senha: QLineEdit = QLineEdit()
+        self.local_senha.setReadOnly(True)
 
         # Botão para copiar o texto
-        self.copy_button: QPushButton = QPushButton(self)
-        self.copy_button.setIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditCopy))
-        self.copy_button.setIconSize(QSize(16, 16))
-        self.copy_button.setFixedSize(24, 24)
-        self.copy_button.setToolTip('Copiar')
-        self.copy_button.clicked.connect(self.copy_password)
+        self.botao_copiar: QPushButton = QPushButton(self)
+        self.botao_copiar.setIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditCopy))
+        self.botao_copiar.setIconSize(QSize(16, 16))
+        self.botao_copiar.setFixedSize(24, 24)
+        self.botao_copiar.setToolTip('Copiar')
+        self.botao_copiar.clicked.connect(self.copiar_senha)
 
         # Adiciona widgets à linha da senha
-        password_display_layout.addWidget(self.password_display)
-        password_display_layout.addWidget(self.copy_button)
+        layout_senha.addWidget(self.local_senha)
+        layout_senha.addWidget(self.botao_copiar)
 
-        # Espaço para feedbacks
-        self.feedback_label = QLabel('', self)
+        # Espaço para retornos ao usuário
+        self.etiqueta_retorno = QLabel('', self)
 
         # Botão para gerar uma nova senha
-        self.generate_button: QPushButton = QPushButton('Gerar Senha')
-        self.generate_button.clicked.connect(self.generate_password)
+        self.botao_gerar: QPushButton = QPushButton('Gerar Senha')
+        self.botao_gerar.clicked.connect(self.gerar_senha)
 
         # Adiciona widgets ao layout principal
-        main_layout.addLayout(password_display_layout)
-        main_layout.addWidget(self.feedback_label)
-        main_layout.addWidget(self.generate_button)
-        main_layout.addStretch()
-        main.setLayout(main_layout)
+        layout_principal.addLayout(layout_senha)
+        layout_principal.addWidget(self.etiqueta_retorno)
+        layout_principal.addWidget(self.botao_gerar)
+        layout_principal.addStretch()
+        principal.setLayout(layout_principal)
 
         # Adiciona a barra lateral e o conteúdo principal ao layout raiz
-        root_layout.addWidget(sidebar)
-        root_layout.addWidget(main)
-        self.setLayout(root_layout)
+        layout_raiz.addWidget(barra_lateral)
+        layout_raiz.addWidget(principal)
+        self.setLayout(layout_raiz)
 
-    def generate_password(self) -> None:
+    def gerar_senha(self) -> None:
         """Método da geração da senha."""
         try:
-            password: str = generator.gerar_senha(
-                self.length_input.value(),
-                usar_minusculas=self.use_lowercase.isChecked(),
-                usar_maiusculas=self.use_uppercase.isChecked(),
-                usar_numeros=self.use_numbers.isChecked(),
-                usar_especiais=self.use_symbols.isChecked(),
+            senha: str = gerador.gerar_senha(
+                self.entrada_comprimento.value(),
+                usar_minusculas=self.usar_minusculas.isChecked(),
+                usar_maiusculas=self.usar_maiusculas.isChecked(),
+                usar_numeros=self.usar_numeros.isChecked(),
+                usar_especiais=self.usar_simbolos.isChecked(),
             )
-            self.password_display.setText(password)
+            self.local_senha.setText(senha)
         except ValueError as e:
-            self.feedback(e.__str__())
+            self.retorno(e.__str__())
 
-    def copy_password(self) -> None:
+    def copiar_senha(self) -> None:
         """Método que copiar a senha para a área de transferência."""
-        text_to_copy: str = self.password_display.text()
+        texto_a_copiar: str = self.local_senha.text()
 
-        if len(text_to_copy) == 0:
-            self.feedback('Por favor, gere a senha antes de copiar.')
+        if len(texto_a_copiar) == 0:
+            self.retorno('Por favor, gere a senha antes de copiar.')
             return
 
-        clipboard: QClipboard = cast(QClipboard, QApplication.clipboard())
-        clipboard.setText(text_to_copy)
+        area_de_transferencia: QClipboard = cast(QClipboard, QApplication.clipboard())
+        area_de_transferencia.setText(texto_a_copiar)
 
-        self.feedback('Texto copiado!')
+        self.retorno('Texto copiado!')
 
-    def feedback(self, message: str) -> None:
+    def retorno(self, message: str) -> None:
         """
         Método que retorna uma mensagem para o usuário.
 
@@ -145,29 +145,29 @@ class PasswordGenerator(QWidget):
         message : str
             A mensagem a ser exibida.
         """
-        self.feedback_label.setText(message)
-        self.opacity_effect: QGraphicsOpacityEffect = QGraphicsOpacityEffect()
-        self.feedback_label.setGraphicsEffect(self.opacity_effect)
-        self.opacity_effect.setOpacity(1.0)
+        self.etiqueta_retorno.setText(message)
+        self.efeito_de_opacidade: QGraphicsOpacityEffect = QGraphicsOpacityEffect()
+        self.etiqueta_retorno.setGraphicsEffect(self.efeito_de_opacidade)
+        self.efeito_de_opacidade.setOpacity(1.0)
 
-        self.feedback_wait_timer = QTimer()
-        self.feedback_wait_timer.setSingleShot(True)
-        self.feedback_wait_timer.timeout.connect(self.start_feedback_fade_out)
-        self.feedback_wait_timer.start(3000)
+        self.temporizador_apaga_retorno = QTimer()
+        self.temporizador_apaga_retorno.setSingleShot(True)
+        self.temporizador_apaga_retorno.timeout.connect(self.inicia_apagamento_retorno)
+        self.temporizador_apaga_retorno.start(3000)
 
-    def start_feedback_fade_out(self) -> None:
+    def inicia_apagamento_retorno(self) -> None:
         """Método que inicia o apagamento do feedback."""
-        self.fadeback_step_timer = QTimer()
-        self.fadeback_step_timer.timeout.connect(self.feedback_fade_out)
-        self.fadeback_step_timer.start(10)
+        self.temporizador_etapa_apaga_retono = QTimer()
+        self.temporizador_etapa_apaga_retono.timeout.connect(self.apaga_retorno)
+        self.temporizador_etapa_apaga_retono.start(10)
 
-    def feedback_fade_out(self) -> None:
+    def apaga_retorno(self) -> None:
         """Método que apaga gradualmente o feedback."""
-        current_opacity: float = self.opacity_effect.opacity()
+        opacidade_atual: float = self.efeito_de_opacidade.opacity()
 
-        if current_opacity > 0:
-            self.opacity_effect.setOpacity(current_opacity - 0.02)
+        if opacidade_atual > 0:
+            self.efeito_de_opacidade.setOpacity(opacidade_atual - 0.02)
         else:
-            self.fadeback_step_timer.stop()
-            self.feedback_label.setText('')
-            self.feedback_label.setGraphicsEffect(None)
+            self.temporizador_etapa_apaga_retono.stop()
+            self.etiqueta_retorno.setText('')
+            self.etiqueta_retorno.setGraphicsEffect(None)
